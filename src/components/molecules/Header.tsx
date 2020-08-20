@@ -4,6 +4,7 @@ import Button from "../atoms/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import Dropdown from "./Dropdown";
 
 interface Props {}
 
@@ -21,12 +22,14 @@ const Header = (props: Props) => {
                             <span className='text-gray-600 ml-2'>Upload</span>
                         </Button>
                     </div>
-                    <div className='flex items-center justify-start pl-4'>
-                        <Button>
-                            <span className='text-gray-600 mr-2'>25</span>
-                            <FontAwesomeIcon className='text-gray-600' icon={faChevronDown} />
-                        </Button>
-                    </div>
+                    <Dropdown in={true}>
+                        <div className='flex items-center justify-start pl-4'>
+                            <Button>
+                                <span className='text-gray-600 mr-2'>25</span>
+                                <FontAwesomeIcon className='text-gray-600' icon={faChevronDown} />
+                            </Button>
+                        </div>
+                    </Dropdown>
                 </div>
             </div>
         </Container>
