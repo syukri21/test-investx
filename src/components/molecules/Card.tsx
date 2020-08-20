@@ -1,15 +1,17 @@
 import React from "react";
 
-interface Props {}
+interface Props {
+    data: PhotoType.Document;
+}
 
-const Card = (props: Props) => {
+const Card = ({data}: Props) => {
     return (
         <div className='flex flex-col justify-center items-center'>
             <div>
-                <img src='http://localhost:8888/photos/nature/road-1072823_1280.jpg' className='w-100% rounded-sm h-auto' alt='#' />
+                <img src={data.raw} className='h-40 rounded-sm w-full object-cover' alt='#' />
             </div>
-            <h6 className="font-semibold text-sm mt-2">Name.jpg</h6>
-            <span className="text-xs text-gray-600" >Other</span>
+            <h6 className='font-semibold text-sm mt-2'>{data.name}</h6>
+            <span className='text-xs text-gray-600'>{data.album}</span>
         </div>
     );
 };

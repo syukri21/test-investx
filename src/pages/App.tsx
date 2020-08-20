@@ -8,11 +8,10 @@ interface Props {}
 
 const App = (props: Props) => {
     const { photoList } = useApp();
-    console.log("App -> photoList", photoList);
     return (
         <React.Fragment>
             <Header></Header>
-            <PhotoList></PhotoList>
+            <PhotoList {...photoList}></PhotoList>
         </React.Fragment>
     );
 };
