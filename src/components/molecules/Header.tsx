@@ -24,10 +24,10 @@ const Header = (props: Props) => {
                             <span className='text-gray-600 ml-2'>Upload</span>
                         </Button>
                     </div>
-                    <Dropdown in={dropdown.state.isOpen}>
+                    <Dropdown in={dropdown.state.isOpen} onChoose={dropdown.handleChooseDropdown}>
                         <div className='flex items-center justify-start pl-4'>
                             <Button onClick={dropdown.handleToggleDropdown}>
-                                <span className='text-gray-600 mr-2'>25</span>
+                                <span className='text-gray-600 mr-2'>{dropdown.state.data}</span>
                                 <FontAwesomeIcon className='text-gray-600' icon={faChevronDown} />
                             </Button>
                         </div>

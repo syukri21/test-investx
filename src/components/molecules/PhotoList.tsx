@@ -14,7 +14,6 @@ const PhotoLoading = () => (
 );
 
 const PhotoList = ({ loading, data }: Props) => {
-    console.log("PhotoList -> data", data);
     if (loading) return <PhotoLoading></PhotoLoading>;
     return (
         <Container>
