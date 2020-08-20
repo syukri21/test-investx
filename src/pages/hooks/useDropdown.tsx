@@ -1,6 +1,16 @@
 import { useState } from "react";
 
-export default function useDropdown() {
+export interface IuseDropdown {
+    state: {
+        isOpen: boolean;
+        data: number;
+    };
+    handleOpenDropdown: () => void;
+    handleCloseDropdown: () => void;
+    handleChooseDropdown: (limit: number) => void;
+    handleToggleDropdown: () => void;
+}
+export default function useDropdown(): IuseDropdown {
     const [state, setState] = useState({ isOpen: false, data: 25 });
 
     function handleOpenDropdown() {
@@ -17,6 +27,13 @@ export default function useDropdown() {
         }));
     }
 
+    function handleToggleDropdown() {
+        setState((val) => ({
+            ...val,
+            isOpen: !val.isOpen,
+        }));
+    }
+
     function handleChooseDropdown(limit: number) {
         setState((val) => ({
             isOpen: false,
@@ -24,5 +41,5 @@ export default function useDropdown() {
         }));
     }
 
-    return { state, handleOpenDropdown, handleCloseDropdown, handleChooseDropdown };
+    return { state, handleOpenDropdown, handleCloseDropdown, handleChooseDropdown, handleToggleDropdown };
 }

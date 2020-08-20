@@ -5,10 +5,12 @@ import Button from "../atoms/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./Dropdown";
+import useAppContext from "../../pages/hooks/useAppContext";
 
 interface Props {}
 
 const Header = (props: Props) => {
+    const { dropdown } = useAppContext();
     return (
         <Container>
             <div className='flex justify-between items-center py-2'>
@@ -22,9 +24,9 @@ const Header = (props: Props) => {
                             <span className='text-gray-600 ml-2'>Upload</span>
                         </Button>
                     </div>
-                    <Dropdown in={true}>
+                    <Dropdown in={dropdown.state.isOpen}>
                         <div className='flex items-center justify-start pl-4'>
-                            <Button>
+                            <Button onClick={dropdown.handleToggleDropdown}>
                                 <span className='text-gray-600 mr-2'>25</span>
                                 <FontAwesomeIcon className='text-gray-600' icon={faChevronDown} />
                             </Button>
