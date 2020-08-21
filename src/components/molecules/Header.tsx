@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt, faChevronDown, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./Dropdown";
 import useAppContext from "../../pages/hooks/useAppContext";
+import api from "../../api/api";
 
 interface Props {}
 
 const Header = (props: Props) => {
-    const { dropdown, deletePhotos, uploadModal } = useAppContext();
-    console.log("Header -> uploadModal", uploadModal);
+    const { dropdown, deletePhotos, uploadModal, photoList } = useAppContext();
 
     const isDeleteState = useMemo(() => deletePhotos.photos.length > 0, [deletePhotos.photos.length]);
     return (
@@ -23,7 +23,18 @@ const Header = (props: Props) => {
                 <div className={`flex  divide-x divide-gray-600`}>
                     {isDeleteState && (
                         <div className='flex items-center mx-4 justify-center'>
-                            <Button>
+                            <Button
+                                onClick={async () => {
+                                    const photosFetch: any = photoList.data?.documents
+                                        .filter((val: any) => deletePhotos.photos.includes(val.id))
+                                        .map((val: any) => ({ album: val.album, documents: val.name }));
+
+                                    api.fetcher(`/photos`, { method: "DELETE", data: photosFetch });
+                                    const result = await Promise.all(photosFetch);
+                                    photoList.mutate();
+                                    deletePhotos.handleClear();
+                                }}
+                            >
                                 <FontAwesomeIcon className='text-gray-600' icon={faTrashAlt} />
                                 <span className='text-gray-600 ml-2'>Delete {deletePhotos.photos.length} photos</span>
                             </Button>

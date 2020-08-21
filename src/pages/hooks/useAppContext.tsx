@@ -10,6 +10,7 @@ export default function useAppContext(): {
     pagination: IusePagination;
     deletePhotos: IuseDeletePhotos;
     uploadModal: IuseUploadModal;
+    photoList: any;
 } {
     const context = useContext(AppContext);
 
