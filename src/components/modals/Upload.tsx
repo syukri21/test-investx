@@ -3,10 +3,12 @@ import Modal from "react-modal";
 import useAppContext from "../../pages/hooks/useAppContext";
 import useDrop from "./hooks/use.drop";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle, faTimes, faCloudUploadAlt, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faCloudUploadAlt, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Button from "../atoms/Button";
 import DropdownAlbum from "./fragments/DropdownAlbum";
 import useDropdownAlbum from "./hooks/use-dropdown-album";
+import { mutateCallback } from "swr/dist/types";
+import PhotoList from "../molecules/PhotoList";
 
 const customStyles = {
     content: {
@@ -25,16 +27,22 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-interface Props {}
+interface Props {
+    photoList: {
+        loading: boolean;
+        data: PhotoType.PhotoListResponses | undefined;
+        mutate: (data?: PhotoType.PhotoListResponses) => {};
+    };
+}
 
 const Upload = (props: Props) => {
     const { uploadModal } = useAppContext();
-    const { getRootProps, getInputProps, isDragActive, images } = useDrop();
-    const {state, handleChooseDropdown, handleOpenDropdown, handleCloseDropdown, handleToggleDropdown} = useDropdownAlbum()
+    const { getRootProps, getInputProps, isDragActive, images, uploadPhotos } = useDrop({ mutate: props.photoList.mutate});
+    const { state, handleChooseDropdown, handleToggleDropdown } = useDropdownAlbum();
 
     return (
         <Modal
-            isOpen={true}
+            isOpen={uploadModal.isOpen}
             onAfterOpen={uploadModal.afterOpenModal}
             onRequestClose={uploadModal.closeModal}
             style={customStyles}
@@ -66,13 +74,13 @@ const Upload = (props: Props) => {
             </div>
             <div className='flex justify-between'>
                 <DropdownAlbum in={state.isOpen} onChoose={handleChooseDropdown}>
-                    <Button onClick={handleToggleDropdown} >
+                    <Button onClick={handleToggleDropdown}>
                         <span className='text-gray-600 mr-2'>{state.data}</span>
                         <FontAwesomeIcon className='text-gray-600' icon={faChevronDown} />
                     </Button>
                 </DropdownAlbum>
 
-                <Button onClick={() => {}}>
+                <Button onClick={uploadPhotos(state.data)}>
                     <FontAwesomeIcon className='text-gray-600' icon={faCloudUploadAlt} />
                     <span className='text-gray-600 ml-2'>Upload</span>
                 </Button>

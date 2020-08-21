@@ -24,7 +24,7 @@ const App = (props: Props) => {
                     </Button>
                 )}
             </div>
-            <Upload></Upload>
+            <Upload photoList={photoList}></Upload>
         </React.Fragment>
     );
 };
