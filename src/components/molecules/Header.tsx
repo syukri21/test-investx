@@ -10,7 +10,8 @@ import useAppContext from "../../pages/hooks/useAppContext";
 interface Props {}
 
 const Header = (props: Props) => {
-    const { dropdown, deletePhotos } = useAppContext();
+    const { dropdown, deletePhotos, uploadModal } = useAppContext();
+    console.log("Header -> uploadModal", uploadModal);
 
     const isDeleteState = useMemo(() => deletePhotos.photos.length > 0, [deletePhotos.photos.length]);
     return (
@@ -29,7 +30,7 @@ const Header = (props: Props) => {
                         </div>
                     )}
                     <div className='flex items-center px-4 justify-center'>
-                        <Button>
+                        <Button onClick={uploadModal.openModal}>
                             <FontAwesomeIcon className='text-gray-600' icon={faCloudUploadAlt} />
                             <span className='text-gray-600 ml-2'>Upload</span>
                         </Button>

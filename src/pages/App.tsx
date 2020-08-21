@@ -6,6 +6,7 @@ import useApp from "./hooks/useApp";
 
 import { withAppProvider } from "./context/AppContext";
 import Button from "../components/atoms/Button";
+import Upload from "../components/modals/Upload";
 
 interface Props {}
 
@@ -23,6 +24,7 @@ const App = (props: Props) => {
                     </Button>
                 )}
             </div>
+            <Upload></Upload>
         </React.Fragment>
     );
 };
