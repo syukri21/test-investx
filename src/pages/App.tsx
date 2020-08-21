@@ -10,12 +10,12 @@ import Button from "../components/atoms/Button";
 interface Props {}
 
 const App = (props: Props) => {
-    const { photoList, handleLoadMore, isLastPage } = useApp();
+    const { photoList, handleLoadMore, isLastPage, isDeleteState } = useApp();
 
     return (
         <React.Fragment>
             <Header></Header>
-            <PhotoList {...photoList}></PhotoList>
+            <PhotoList {...photoList} isDeleteState={isDeleteState}></PhotoList>
             <div className='flex justify-center items-center py-8'>
                 {!isLastPage && (
                     <Button width='auto' onClick={handleLoadMore}>

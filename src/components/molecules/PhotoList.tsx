@@ -5,6 +5,7 @@ import Card from "./Card";
 interface Props {
     data: PhotoType.PhotoListResponses | undefined;
     loading: boolean;
+    isDeleteState: boolean;
 }
 
 const PhotoLoading = () => (
@@ -13,13 +14,13 @@ const PhotoLoading = () => (
     </Container>
 );
 
-const PhotoList = ({ loading, data }: Props) => {
+const PhotoList = ({ loading, data, isDeleteState }: Props) => {
     if (loading && data) return <PhotoLoading></PhotoLoading>;
     return (
         <Container>
             <div className='grid grid-cols-5 gap-4'>
                 {data?.documents.map((item, index) => (
-                    <Card key={item.id} data={item}></Card>
+                    <Card isDeleteState={isDeleteState} key={item.id} data={item}></Card>
                 ))}
             </div>
         </Container>

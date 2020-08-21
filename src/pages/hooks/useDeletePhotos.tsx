@@ -1,32 +1,33 @@
 import { useState } from "react";
 
 export interface IuseDeletePhotos {
-    photos: Set<string>;
+    photos: Array<string>;
     handleRemove: (id: string) => void;
     handleAdd: (id: string) => void;
     handleClear: () => void;
 }
 
 export default function useDeletePhotos(): IuseDeletePhotos {
-    const [photos, setPhotos] = useState(new Set<string>());
+    const [photos, setPhotos] = useState(new Array<string>());
 
     function handleAdd(id: string) {
         setPhotos((val) => {
-            val.add(id);
-            return val;
+            const newVal = new Set(val);
+            newVal.add(id);
+            return Array.from(newVal);
         });
     }
 
     function handleRemove(id: string) {
         setPhotos((val) => {
-            val.delete(id);
-            return val;
+            const newVal = new Set(val);
+            newVal.delete(id);
+            return Array.from(newVal);
         });
     }
     function handleClear() {
         setPhotos((val) => {
-            val.clear();
-            return val;
+            return [];
         });
     }
 

@@ -4,7 +4,7 @@ import { useEffect, useCallback } from "react";
 import PhotoRepository from "../../repositories/PhotoRepository";
 
 export default function useApp() {
-    const { dropdown, pagination } = useAppContext();
+    const { dropdown, pagination, deletePhotos } = useAppContext();
     const photoList = usePhotoList({ limit: dropdown.state.data, skip: pagination.state.page * dropdown.state.data });
 
     useEffect(() => {
@@ -34,5 +34,5 @@ export default function useApp() {
         }
     }, [pagination, dropdown.state.data, photoList]);
 
-    return { photoList, handleLoadMore, isLastPage: pagination.state.isLastPage };
+    return { photoList, handleLoadMore, isLastPage: pagination.state.isLastPage, isDeleteState: deletePhotos.photos.length > 0 };
 }
