@@ -15,7 +15,7 @@ npm run start
 ```
 
 
-## How to RUN
+## How to BUILD
 
 ```
 npm run build
