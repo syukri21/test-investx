@@ -3,8 +3,8 @@ import { useMemo } from "react";
 import PhotoRepository from "../repositories/PhotoRepository";
 
 export default function usePhotoList({ limit = 25, skip = 0 }) {
-    const params = useMemo(() => ["/photos/list", { skip, limit }], [skip, limit]);
-    const { data, error, mutate } = useSWR(params, PhotoRepository.getAllPhoto);
+    const params = useMemo(() => ["/photos/list", { skip: 0, limit }], [limit]);
+    const { data, error, mutate } = useSWR<PhotoType.PhotoListResponses>(params, PhotoRepository.getAllPhoto, { refreshInterval: 0 });
 
     const loading = !data && !error;
 

@@ -3,7 +3,7 @@ import Container from "../atoms/Container";
 import Card from "./Card";
 
 interface Props {
-    data: PhotoType.PhotoListResponses;
+    data: PhotoType.PhotoListResponses | undefined;
     loading: boolean;
 }
 
@@ -14,12 +14,12 @@ const PhotoLoading = () => (
 );
 
 const PhotoList = ({ loading, data }: Props) => {
-    if (loading) return <PhotoLoading></PhotoLoading>;
+    if (loading && data) return <PhotoLoading></PhotoLoading>;
     return (
         <Container>
             <div className='grid grid-cols-5 gap-4'>
-                {data.documents.map((item, index) => (
-                    <Card key={index} data={item}></Card>
+                {data?.documents.map((item, index) => (
+                    <Card key={item.id} data={item}></Card>
                 ))}
             </div>
         </Container>

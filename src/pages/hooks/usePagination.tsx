@@ -5,15 +5,18 @@ export interface IusePagination {
         page: number;
     };
     handleNextPage: () => void;
+    resetPage: () => void;
 }
 
 export default function usePagination(): IusePagination {
     const [state, setState] = useState({ page: 0 });
 
     function handleNextPage() {
-        setState((val) => ({
-            page: val.page++,
-        }));
+        setState((val) => {
+            return {
+                page: state.page + 1,
+            };
+        });
     }
 
     function resetPage() {
@@ -22,5 +25,5 @@ export default function usePagination(): IusePagination {
         }));
     }
 
-    return { state, handleNextPage };
+    return { state, handleNextPage, resetPage };
 }
