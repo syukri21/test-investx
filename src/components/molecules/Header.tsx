@@ -1,24 +1,34 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Container from "../atoms/Container";
 import Button from "../atoms/Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudUploadAlt, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faCloudUploadAlt, faChevronDown, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./Dropdown";
 import useAppContext from "../../pages/hooks/useAppContext";
 
 interface Props {}
 
 const Header = (props: Props) => {
-    const { dropdown } = useAppContext();
+    const { dropdown, deletePhotos } = useAppContext();
+
+    const isDeleteState = useMemo(() => deletePhotos.photos.length > 0, [deletePhotos.photos.length]);
     return (
         <Container>
             <div className='flex justify-between items-center py-2'>
                 <div>
                     <span className='text-3xl font-medium'>Photos</span>
                 </div>
-                <div className='grid grid-cols-2 divide-x divide-gray-600'>
-                    <div className='flex items-center mr-4 justify-center'>
+                <div className={`flex  divide-x divide-gray-600`}>
+                    {isDeleteState && (
+                        <div className='flex items-center mx-4 justify-center'>
+                            <Button>
+                                <FontAwesomeIcon className='text-gray-600' icon={faTrashAlt} />
+                                <span className='text-gray-600 ml-2'>Delete {deletePhotos.photos.length} photos</span>
+                            </Button>
+                        </div>
+                    )}
+                    <div className='flex items-center px-4 justify-center'>
                         <Button>
                             <FontAwesomeIcon className='text-gray-600' icon={faCloudUploadAlt} />
                             <span className='text-gray-600 ml-2'>Upload</span>

@@ -24,7 +24,7 @@ interface Props extends PropsWithChildren<any> {
 
 const Dropdown = (props: Props) => {
     return (
-        <div className='relative inline-block text-left'>
+        <div className='relative inline-block text-left ' style={{ zIndex: 10 }}>
             <div>{props.children}</div>
             <div
                 className={`${props.in ? "transition ease-out duration-100" : "transition ease-in duration-75"} ${
