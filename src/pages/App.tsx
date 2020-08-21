@@ -11,22 +11,22 @@ import Upload from "../components/modals/Upload";
 interface Props {}
 
 const App = (props: Props) => {
-    const { photoList, handleLoadMore, isLastPage, isDeleteState } = useApp();
+  const { photoList, handleLoadMore, isLastPage, isDeleteState } = useApp();
 
-    return (
-        <React.Fragment>
-            <Header></Header>
-            <PhotoList {...photoList} isDeleteState={isDeleteState}></PhotoList>
-            <div className='flex justify-center items-center py-8'>
-                {!isLastPage && (
-                    <Button width='auto' onClick={handleLoadMore}>
-                        <span className='text-gray-600'>Load More</span>
-                    </Button>
-                )}
-            </div>
-            <Upload photoList={photoList}></Upload>
-        </React.Fragment>
-    );
+  return (
+    <React.Fragment>
+      <Header></Header>
+      <PhotoList {...photoList} isDeleteState={isDeleteState}></PhotoList>
+      <div className="flex justify-center items-center py-8">
+        {!isLastPage && (
+          <Button width="auto" onClick={handleLoadMore}>
+            <span className="text-gray-600">Load More</span>
+          </Button>
+        )}
+      </div>
+      <Upload photoList={photoList}></Upload>
+    </React.Fragment>
+  );
 };
 
 export default withAppProvider(App);
