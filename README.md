@@ -1,7 +1,3 @@
-# Cermati Test Backend
-
-Scraping Using cherio, axios, async.
-
 ## How to INSTALL
 
 ```
