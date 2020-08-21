@@ -42,7 +42,7 @@ const Header = (props: Props) => {
                     method: "DELETE",
                     data: photosFetch,
                   });
-                  const result = await Promise.all(photosFetch);
+                  await Promise.all(photosFetch);
                   photoList.mutate();
                   deletePhotos.handleClear();
                 }}

@@ -1,4 +1,3 @@
-import usePhotoList from "../../hooks/use.photo-list";
 import useAppContext from "./useAppContext";
 import { useEffect, useCallback } from "react";
 import PhotoRepository from "../../repositories/PhotoRepository";

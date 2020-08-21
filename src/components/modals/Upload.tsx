@@ -11,8 +11,6 @@ import {
 import Button from "../atoms/Button";
 import DropdownAlbum from "./fragments/DropdownAlbum";
 import useDropdownAlbum from "./hooks/use-dropdown-album";
-import { mutateCallback } from "swr/dist/types";
-import PhotoList from "../molecules/PhotoList";
 
 const customStyles = {
   content: {
