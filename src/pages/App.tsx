@@ -16,18 +16,23 @@ const App = (props: Props) => {
     const { photoList } = useApp();
 
     const handleLoadMore = React.useCallback(async () => {
-        pagination.handleNextPage();
-        const newData = await PhotoRepository.getAllPhoto("/photos/list", {
-            skip: (pagination.state.page + 1) * dropdown.state.data,
-            limit: dropdown.state.data,
-        });
-        photoList.mutate(
-            (data: any) => ({
-                ...data,
-                documents: [...data.documents, ...newData.documents],
-            }),
-            false
-        );
+        try {
+            const newData: PhotoType.PhotoListResponses = await PhotoRepository.getAllPhoto("/photos/list", {
+                skip: (pagination.state.page + 1) * dropdown.state.data,
+                limit: dropdown.state.data,
+            });
+
+            pagination.handleNextPage(newData.documents.length < dropdown.state.data);
+            photoList.mutate(
+                (data: any) => ({
+                    ...data,
+                    documents: [...data.documents, ...newData.documents],
+                }),
+                false
+            );
+        } catch (e) {
+            console.log(e.message);
+        }
     }, [pagination, dropdown.state.data, photoList]);
 
     return (
@@ -35,9 +40,11 @@ const App = (props: Props) => {
             <Header></Header>
             <PhotoList {...photoList}></PhotoList>
             <div className='flex justify-center items-center py-8'>
-                <Button width='auto' onClick={handleLoadMore}>
-                    <span className='text-gray-600'>Load More</span>
-                </Button>
+                {!pagination.state.isLastPage && (
+                    <Button width='auto' onClick={handleLoadMore}>
+                        <span className='text-gray-600'>Load More</span>
+                    </Button>
+                )}
             </div>
         </React.Fragment>
     );
