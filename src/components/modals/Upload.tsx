@@ -5,6 +5,8 @@ import useDrop from "./hooks/use.drop";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle, faTimes, faCloudUploadAlt, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Button from "../atoms/Button";
+import DropdownAlbum from "./fragments/DropdownAlbum";
+import useDropdownAlbum from "./hooks/use-dropdown-album";
 
 const customStyles = {
     content: {
@@ -28,6 +30,7 @@ interface Props {}
 const Upload = (props: Props) => {
     const { uploadModal } = useAppContext();
     const { getRootProps, getInputProps, isDragActive, images } = useDrop();
+    const {state, handleChooseDropdown, handleOpenDropdown, handleCloseDropdown, handleToggleDropdown} = useDropdownAlbum()
 
     return (
         <Modal
@@ -54,7 +57,7 @@ const Upload = (props: Props) => {
                     {images.map((item, index) => {
                         return (
                             <div key={index} className='py-1 px-3 border my-2'>
-                                <span className="text-xs">{item.name}</span>
+                                <span className='text-xs'>{item.name}</span>
                             </div>
                         );
                     })}
@@ -62,10 +65,13 @@ const Upload = (props: Props) => {
                 <input {...getInputProps()} />
             </div>
             <div className='flex justify-between'>
-                <Button>
-                    <span className='text-gray-600 mr-2'>Select album</span>
-                    <FontAwesomeIcon className='text-gray-600' icon={faChevronDown} />
-                </Button>
+                <DropdownAlbum in={state.isOpen} onChoose={handleChooseDropdown}>
+                    <Button onClick={handleToggleDropdown} >
+                        <span className='text-gray-600 mr-2'>{state.data}</span>
+                        <FontAwesomeIcon className='text-gray-600' icon={faChevronDown} />
+                    </Button>
+                </DropdownAlbum>
+
                 <Button onClick={() => {}}>
                     <FontAwesomeIcon className='text-gray-600' icon={faCloudUploadAlt} />
                     <span className='text-gray-600 ml-2'>Upload</span>
